@@ -137,7 +137,22 @@ function(qlik, qv, $, config,  style) {
         .order({sort: 'desc'})
         .attrs(d3AttrsData)
         .color("hex")
-        .shape( shapeMap[ visualization.properties.shapeType ] || "Circle" )
+        .shape(function(d) {
+          var t = visualization.properties.shapeType;
+          // the built-in shapes still work:
+          if (t === "circle"  || t === "square"  || t === "triangle") {
+            return shapeMap[t] || "Circle";
+          }
+          // for pentagon & hexagon use d3.symbol()
+          var symbolType = t === "pentagon"
+            ? d3.symbolPentagon
+            : d3.symbolHexagon;
+          // size here is in pixels², adjust scale to taste
+          return d3.symbol().type(symbolType).size(
+            Math.pow(d[ visualization.properties.value ], 0.6)
+          )();
+        })
+      
         .mouse({
           click: function(d) {
             // update selection arrays
