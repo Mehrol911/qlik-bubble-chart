@@ -68,7 +68,14 @@ function(qlik, qv, $, config,  style) {
     }
 
     function render(visualization, visualizationThis, data, config) {
-
+      // map our dropdown values to the exact D3plus shape names
+      var shapeMap = {
+          circle:   "Circle",
+          square:   "Square",
+          triangle: "TriangleUp",
+          pentagon: "Pentagon",
+          hexagon:  "Hexagon"
+          };
       var d3Data = [];
       var d3AttrsData = [];
           
@@ -126,6 +133,7 @@ function(qlik, qv, $, config,  style) {
         .order({sort: 'desc'})
         .attrs(d3AttrsData)
         .color("hex")
+        .shape( shapeMap[ visualization.properties.shapeType ] || "Circle" )
         .mouse({                
           "click": function(d){
 
@@ -185,7 +193,7 @@ function(qlik, qv, $, config,  style) {
       properties.bubbleMinSize = layout.qDef["BubbleMinSize"];
       properties.color = layout.qDef["Color"];
       properties.loadingMessage = layout.qDef["Loading"];
-    
+      properties.shapeType     = layout.qDef["ShapeType"] || "circle";
       properties.id = id;
       properties.rootDivId = 'viz_axeed-bubble-chart_' + id;
 

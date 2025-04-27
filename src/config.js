@@ -89,6 +89,20 @@ define(function() {
                     defaultValue: "50",
                     expression: "optional"
                   },
+                  ShapeType: {
+                    ref: "qDef.ShapeType",
+                    label: "Shape Type",
+                    type: "string",
+                    component: "dropdown",
+                    options: [
+                      { value: "circle",   label: "Bubble (Circle)" },
+                      { value: "square",   label: "Square"       },
+                      { value: "triangle", label: "Triangle"     },
+                      { value: "pentagon", label: "Pentagon"     },
+                      { value: "hexagon",  label: "Hexagon"      }
+                        ],
+                        defaultValue: "circle"
+                      },
                   Color: {
                     ref: "qDef.Color",
                     label: "Color by",

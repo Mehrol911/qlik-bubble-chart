@@ -1,0 +1,24 @@
+{
+  "name": "My axeed Bubble Chart",
+  "description": "d3plus Bubble Grouping (Enhanced: added dynamic shape selection)",
+  "type": "visualization",
+  "version": "1.1.0",
+  "icon": "extension",
+  "author": "Patric Amatulli",
+  "company": "axeed AG",
+  "homepage": "https://www.linkedin.com/in/patricamatulli/",
+  "email": "patric.amatulli@axeed.ch",
+  "keywords": "qlik-sense, visualization",
+  "license": "2017 © axeed AG - All rights reserved.",
+  "repository": "",
+  "dependencies": {
+    "qlik-sense": ">=3.0.x"
+  },
+  "contributors": [
+    {
+      "name": "Mehrol Bazarov",
+      "github": "https://github.com/Mehrol911",
+      "improvements": "Added Shape Type dropdown (circle, square, triangle, pentagon, hexagon) for accessibility and customization."
+    }
+  ]
+}
