@@ -1,13 +1,35 @@
-# bubble-chart
-Qlik Sense Bubble Chart Extension
-======================================
+# qlik-bubble-chart
 
-This extension visualizes grouping data capability between two dimensions using interactive bubbles. This extension could be seen as an alternative to the treemap standard visualization. For the grouping of the bubbles the d3 and d3plus visiualization library is used. Every group of bubbles contains a number of limited bubbles to have the grouping effect, represented as an adjacency matrix. Currently a depth of 1 is supported. The size of each bubbles is influenced by a specified measure. All aggregation and rendering is done client-side in JavaScript. Built with Alexander Simoes <a href="https://github.com/alexandersimoes/d3plus">d3plus.js</a> visualization library, published with the MIT open-source license.
+**Qlik Sense Bubble Chart Extension**  
+An interactive grouping chart using D3plus, now with dynamic shape selection.
 
-![alt tag](https://github.com/pamaxeed/bubble-chart/blob/master/BubbleChart.gif?raw=true)
+---
 
-![alt tag](https://github.com/pamaxeed/bubble-chart/blob/master/BubbleChart_Settings.gif?raw=true)
+## Features
 
+- **Grouping**: Two-level grouping of bubbles (or custom shapes) by your primary and secondary dimensions  
+- **Size**: Bubble (or shape) size driven by a single measure  
+- **Color**: Customize by primary dim, secondary dim or your own expression  
+- **Shapes**: Choose between Circle (bubble), Square, Triangle, Pentagon or Hexagon  
+- **Legend**: Toggle legend on/off  
+- **Loading Message**: Custom loading text  
+- **Min Size**: Control minimum shape size (1–100)
+
+---
+
+## Demo
+
+![BubbleChart](BubbleChart.gif)  
+![Settings](BubbleChart_Settings.gif)
+
+---
+
+## Installation
+
+1. **Fork & Clone**  
+   ```bash
+   git clone https://github.com/Mehrol911/qlik-bubble-chart
+   
 ### Tested on
 1. Qliksense Desktop version 3.2 -> http://localhost:4848/hub
 
@@ -40,17 +62,36 @@ Hint: dimensions should not contain null values
 1. Extension can handle a limited finite number of bubbles -> Not suitable for every usecase
 2. Measure Legend issue when using Qliksense Desktop
 
+
+### Contributors & Changelog
+**Patric Amatulli** (original author)
+
+**Mehrol Bazarov** (enhanced with dynamic Shape Type dropdown, bumped version to 1.1.0)
+
+## v1.1.0
+- Added Shape Type dropdown (circle, square, triangle, pentagon, hexagon)
+- Updated metadata in `.qext`
+
+## v1.0.0
+- Initial D3plus bubble grouping extension
+
+
 ## Author
 
-**Patric Amatulli**
+**Patric Amatulli**  
+- LinkedIn: https://www.linkedin.com/in/patricamatulli/  
+- Company: axeed AG (http://www.axeed.ch)  
+- GitHub: https://github.com/pamaxeed  
 
-+ [https://www.linkedin.com/in/patricamatulli/](https://www.linkedin.com/in/patricamatulli/)
-* [axeed AG](http://www.axeed.ch)
-* [github.com/pamaxeed](http://github.com/pamaxeed)
+**Mehrol Bazarov**  
+- LinkedIn: https://www.linkedin.com/in/mehrol911  
+- GitHub: https://github.com/Mehrol911  
+- Email: mehrol911@gmail.com  
 
 ## License
 
 Copyright © 2017 Patric Amatulli
+Enhancements © Mehrol Bazarov
 
 Released under the MIT license.
 
