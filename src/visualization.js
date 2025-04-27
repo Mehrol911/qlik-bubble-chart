@@ -1,12 +1,12 @@
 var debug = false;
 
 requirejs.config({
-  shim : {
-    "extensions/axeed-bubble-chart/lib/d3plus" : {
-      "deps" : ["extensions/axeed-bubble-chart/lib/d3"]
+    shim: {
+      "extensions/my-axeed-bubble-chart/lib/d3plus": {
+        deps: ["extensions/my-axeed-bubble-chart/lib/d3"]
+      }
     }
-  }
-});
+  });
 
 define(['qlik', 'qvangular',  'jquery', './config',  'text!./style.css', '../lib/d3', '../lib/d3plus'],
 
