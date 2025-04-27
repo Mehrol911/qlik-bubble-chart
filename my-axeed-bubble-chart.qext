@@ -1,6 +1,6 @@
 {
-  "name": "My axeed Bubble Chart",
-  "description": "d3plus Bubble Grouping (Enhanced: added dynamic shape selection)",
+  "name": "My Bubble Chart",
+  "description": "d3plus Bubble Grouping (Enhanced: added dynamic shape selection) by Mehrol Bazarov",
   "type": "visualization",
   "version": "1.1.0",
   "icon": "extension",
