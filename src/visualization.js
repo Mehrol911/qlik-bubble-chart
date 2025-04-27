@@ -120,7 +120,11 @@ function(qlik, qv, $, config,  style) {
       var d3visualization = d3plus.viz();
       d3visualization.container("#" + visualization.properties.rootDivId)  
         .data(d3Data)     
-        .type("bubbles") 
+        .type(
+          visualization.properties.shapeType === "circle"
+            ? "bubbles"
+            : "point"
+        )
         .id([visualization.properties.dim1, visualization.properties.dim2, config.SELECTED_INDEX])
         .tooltip({
         "Info": [visualization.properties.dim1, visualization.properties.dim2]
@@ -169,6 +173,53 @@ function(qlik, qv, $, config,  style) {
           }
         })   
         .draw();
+        if (visualization.properties.shapeType !== "circle") {
+          transformGroupShapes( visualization.properties.shapeType );
+        }
+        
+        /**
+ * Replace each group‐boundary circle with an n-sided polygon
+ * @param {string} shapeType – "square", "triangle", "pentagon", or "hexagon"
+ */
+function transformGroupShapes(shapeType) {
+  // map dropdown to number of sides
+  var sidesMap = { square:4, triangle:3, pentagon:5, hexagon:6 };
+  var sides = sidesMap[shapeType];
+  if (!sides) return;
+
+  // select every group container (adjust the selector if needed)
+  // D3plus puts grouping circles in: <g class="d3plus-group">
+  d3.selectAll("g.d3plus-group").each(function() {
+    var g = d3.select(this);
+    var circle = g.select("circle");
+    if (circle.empty()) return;
+
+    // read circle geometry
+    var cx = +circle.attr("cx"),
+        cy = +circle.attr("cy"),
+        r  = +circle.attr("r");
+    var angle = (2 * Math.PI) / sides;
+
+    // compute polygon points
+    var pts = d3.range(sides).map(function(i) {
+      var a = -Math.PI/2 + i*angle;
+      return [
+        cx + r*Math.cos(a),
+        cy + r*Math.sin(a)
+      ].join(",");
+    }).join(" ");
+
+    // append the polygon
+    g.append("polygon")
+     .attr("points", pts)
+     .attr("fill", "none")
+     .attr("stroke", circle.attr("stroke"))
+     .attr("stroke-width", circle.attr("stroke-width"));
+
+    // remove original circle
+    circle.remove();
+  });
+}
 
       //PAM: Check if Color Settings are set in the General Settings -> if yes then use this setting
       if(visualization.properties.color > 0){
@@ -197,7 +248,7 @@ function(qlik, qv, $, config,  style) {
       properties.bubbleMinSize = layout.qDef["BubbleMinSize"];
       properties.color = layout.qDef["Color"];
       properties.loadingMessage = layout.qDef["Loading"];
-      properties.shapeType     = layout.qDef["ShapeType"] || "circle";
+      properties.shapeType = layout.qDef["ShapeType"] || "circle";
       properties.id = id;
       properties.rootDivId = 'viz_axeed-bubble-chart_' + id;
 
