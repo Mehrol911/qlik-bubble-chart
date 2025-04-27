@@ -1,24 +1,20 @@
 {
-  "name": "My Bubble Chart",
-  "description": "d3plus Bubble Grouping (Enhanced: added dynamic shape selection) by Mehrol Bazarov",
+  "name": "my-axeed-bubble-chart",
+  "description": "d3plus Bubble Grouping (Enhanced: dynamic shape dropdown  + square, diamond boundary)",
   "type": "visualization",
   "version": "1.1.0",
-  "icon": "Mehrol_bubble_icon.png",
-  "author": "Patric Amatulli",
-  "company": "axeed AG",
-  "homepage": "https://www.linkedin.com/in/patricamatulli/",
-  "email": "patric.amatulli@axeed.ch",
-  "keywords": "qlik-sense, visualization",
-  "license": "2017 © axeed AG - All rights reserved.",
-  "repository": "",
+  "icon": "scatter-plot",               
+  "preview": "Mehrol_bubble_icon.png",    
+  "author": "Patric Amatulli, Mehrol Bazarov",
+  "company": "StrategyCO",
+  "homepage": "https://github.com/Mehrol911/qlik-bubble-chart",
+  "keywords": "qlik-sense, bubble, visualization, shapes",
+  "license": "MIT",
+  "repository": "https://github.com/Mehrol911/qlik-bubble-chart",
+  "support": {
+    "url": "https://www.linkedin.com/in/mehrol911"  
+  },
   "dependencies": {
     "qlik-sense": ">=3.0.x"
-  },
-  "contributors": [
-    {
-      "name": "Mehrol Bazarov",
-      "github": "https://github.com/Mehrol911",
-      "improvements": "Added Shape Type dropdown (circle, square, triangle, pentagon, hexagon) for accessibility and customization."
-    }
-  ]
+  }
 }

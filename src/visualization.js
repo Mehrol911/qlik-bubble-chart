@@ -70,11 +70,9 @@ function(qlik, qv, $, config,  style) {
     function render(visualization, visualizationThis, data, config) {
       // map our dropdown values to the exact D3plus shape names
       var shapeMap = {
-          circle:   "Circle",
-          square:   "Square",
-          triangle: "TriangleUp",
-          pentagon: "Pentagon",
-          hexagon:  "Hexagon"
+          circle:  "Circle",
+          square:  "Square",
+          diamond: "Diamond"
           };
       var d3Data = [];
       var d3AttrsData = [];
@@ -197,44 +195,47 @@ function(qlik, qv, $, config,  style) {
  * @param {string} shapeType – "square", "triangle", "pentagon", or "hexagon"
  */
 function transformGroupShapes(shapeType) {
-  // map dropdown to number of sides
-  var sidesMap = { square:4, triangle:3, pentagon:5, hexagon:6 };
+  // only square & diamond supported now
+  var sidesMap = { square: 4, diamond: 4 };
   var sides = sidesMap[shapeType];
   if (!sides) return;
 
-  // select every group container (adjust the selector if needed)
-  // D3plus puts grouping circles in: <g class="d3plus-group">
+  // rotate diamond by 45°, otherwise start at top
+  var startAngle = shapeType === "diamond"
+    ? -Math.PI / 4
+    : -Math.PI / 2;
+  var angle = (2 * Math.PI) / sides;
+
+  // replace each grouping circle
   d3.selectAll("g.d3plus-group").each(function() {
     var g = d3.select(this);
     var circle = g.select("circle");
     if (circle.empty()) return;
 
-    // read circle geometry
+    // read circle center & radius
     var cx = +circle.attr("cx"),
         cy = +circle.attr("cy"),
         r  = +circle.attr("r");
-    var angle = (2 * Math.PI) / sides;
 
-    // compute polygon points
+    // compute each polygon point using startAngle
     var pts = d3.range(sides).map(function(i) {
-      var a = -Math.PI/2 + i*angle;
+      var a = startAngle + i * angle;
       return [
-        cx + r*Math.cos(a),
-        cy + r*Math.sin(a)
+        cx + r * Math.cos(a),
+        cy + r * Math.sin(a)
       ].join(",");
     }).join(" ");
 
-    // append the polygon
+    // draw polygon & remove circle
     g.append("polygon")
      .attr("points", pts)
      .attr("fill", "none")
      .attr("stroke", circle.attr("stroke"))
      .attr("stroke-width", circle.attr("stroke-width"));
-
-    // remove original circle
     circle.remove();
   });
 }
+
 
       //PAM: Check if Color Settings are set in the General Settings -> if yes then use this setting
       if(visualization.properties.color > 0){

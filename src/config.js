@@ -95,11 +95,9 @@ define(function() {
                     type: "string",
                     component: "dropdown",
                     options: [
-                      { value: "circle",   label: "Bubble (Circle)" },
-                      { value: "square",   label: "Square"       },
-                      { value: "triangle", label: "Triangle"     },
-                      { value: "pentagon", label: "Pentagon"     },
-                      { value: "hexagon",  label: "Hexagon"      }
+                             { value: "circle",  label: "Circle"    },
+                             { value: "square",  label: "Square"    },
+                             { value: "diamond", label: "Diamond"   }
                         ],
                         defaultValue: "circle"
                       },
