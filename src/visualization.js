@@ -134,36 +134,40 @@ function(qlik, qv, $, config,  style) {
         .attrs(d3AttrsData)
         .color("hex")
         .shape( shapeMap[ visualization.properties.shapeType ] || "Circle" )
-        .mouse({                
-          "click": function(d){
-
-              //PAM: ToDo! Improving Logic by using Dictionary structure Key -> Value instead of array structure
-              addOrRemove(selValues, d[visualization.properties.dim2]);
-              addOrRemove(selIndex, d[config.SELECTED_INDEX]);
-              
-              var bubbles = d3.selectAll('.d3plus_rect');
-          
-              bubbles.filter(function (x) { return !isInArray(x[visualization.properties.dim2],selValues) }).transition().style("fill-opacity", 0.4);  
-              bubbles.filter(function (x) { return  isInArray(x[visualization.properties.dim2],selValues) }).transition().style("fill-opacity", 1); 
-              
-              visualizationThis.selectValues(1, [d.Index], true);   
-
-              scope.selectionsApi.clear = function () {
-                
-                for (index of selIndex)
-                {
-                    visualizationThis.selectValues(1, [index], true);   
-                }
-                
-                selValues = [];
-                selIndex =  [];
-                
-               bubbles.transition().style("fill-opacity", 0.4); 
-
-              };
-            
-            }
-          })        
+        .mouse({
+          click: function(d) {
+            // update selection arrays
+            addOrRemove(selValues, d[visualization.properties.dim2]);
+            addOrRemove(selIndex,  d[config.SELECTED_INDEX]);
+        
+            // grab every drawn node, regardless of shape
+            var nodes = d3.selectAll('.d3plus-node');
+        
+            // dim unselected
+            nodes.filter(function(x) {
+              return !isInArray(x[visualization.properties.dim2], selValues);
+            })
+            .transition()
+              .style('fill-opacity', 0.4);
+        
+            // highlight selected
+            nodes.filter(function(x) {
+              return isInArray(x[visualization.properties.dim2], selValues);
+            })
+            .transition()
+              .style('fill-opacity', 1);
+        
+            // apply Qlik selection
+            visualizationThis.selectValues(1, [d.Index], true);
+        
+            // clear logic
+            scope.selectionsApi.clear = function() {
+              selValues = [];
+              selIndex  = [];
+              nodes.transition().style('fill-opacity', 0.4);
+            };
+          }
+        })   
         .draw();
 
       //PAM: Check if Color Settings are set in the General Settings -> if yes then use this setting
